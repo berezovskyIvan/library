@@ -2,7 +2,7 @@
 	custom-tooltip(value="Добавить")
 		slot
 			.button-block(:style="bloom")
-				.plus-icon &#43
+				.plus-icon(:style="{ fontSize: this.iconSize }") &#43
 </template>
 
 <script>
@@ -17,6 +17,10 @@
 			diameter: {
 				type: String,
 				default: '50px'
+			},
+			iconSize: {
+				type: String,
+				default: '60px',
 			},
 			color: {
 				type: String,

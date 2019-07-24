@@ -1,7 +1,8 @@
 ﻿<template lang="pug">
 	.row-block(@mouseover="isHover = true", @mouseout="isHover = false")
 		input(type="file", @change="getPicture", style="display: none", :id="index")
-		label.download-file(:for="index") &#10152
+		label.download-file(:for="index")
+			span(style="margin-bottom: 3px") &#10152
 		input(v-model="data.title", placeholder="Заголовок", maxlength="30")
 		input(v-model="data.name", placeholder="Имя автора", maxlength="20")
 		input(v-model="data.surname", placeholder="Фамилия автора", maxlength="20")
@@ -106,7 +107,7 @@
 	input {
 		margin: 0 10px 0 10px;
 		height: 23px;
-		width: 180px;
+		width: 130px;
 		border-width: 1px;
 		border-radius: 3px;
 	}

@@ -1,10 +1,16 @@
 ﻿<template lang="pug">
 	.page-block
-		side-panel(v-if="sidePanelOpen", :options="options" ,@closeSidePanel="sidePanelOpen = false")
+		.side-panel(v-if="sPanel.isOpen")
+			.title
+				.close-button(@click="sPanel.isOpen = false") &#10006
+			.main
+				settings-panel(v-show="sPanel.type === 'settings'", :options="options")
+				help-panel(v-show="sPanel.type === 'help'")
 		.header
-			.settings(@click="sidePanelOpen = !sidePanelOpen", :class="{ 'side-panel-open' : sidePanelOpen }") &#9776
+			.options-button.settings(@click="sidePanelUse('settings')", :class="{ 'side-panel-open' : sPanel.isOpen && sPanel.type === 'settings' }") &#9776
+			.options-button.help(@click="sidePanelUse('help')") &#63
 			img.books-picture(src="./pictures/Books.png")
-			span.title-text Welcome to the web library
+			span.title-text Добро пожаловать в веб библиотеку
 			.message(v-show="message.visibility") {{ message.text }}
 				span.exclamation(:style="bloom") &#33
 		books-row-data.row-block(v-for="(item, index) in booksData", :data="item", :index="index", :options="options", @updateBooksData="updateBooksData")
@@ -13,7 +19,8 @@
 </template>
 
 <script>
-	import sidePanel from './components/SidePanel'
+	import settingsPanel from './components/SettingsPanel'
+	import helpPanel from './components/HelpPanel'
 	import booksRowData from './components/BooksRowData'
 	import customButton from './components/CustomButton'
 	import customTooltip from './components/customTooltip'
@@ -21,14 +28,18 @@
 	export default {
 		name: 'library',
 		components: {
-			sidePanel,
+			settingsPanel,
+			helpPanel,
 			booksRowData,
 			customButton,
 			customTooltip
 		},
 		data() {
 			return {
-				sidePanelOpen: false,
+				sPanel: {
+					isOpen: false,
+					type: ''
+				},
                 options: {
                     publishing: true,
                     publicationYear: true,
@@ -51,6 +62,10 @@
             }
         },
 		methods: {
+			sidePanelUse(type) {
+				this.sPanel.isOpen = !this.sPanel.isOpen || this.sPanel.type !== type
+				this.sPanel.type = this.sPanel.isOpen ? type : ''
+			},
 			getArrayClone(arr) {
 			    return JSON.parse(JSON.stringify(arr))
             },
@@ -144,6 +159,43 @@
         border-bottom: 1px solid #4dd0e1;
 	}
 
+	.side-panel {
+        z-index: 1;
+		position: absolute;
+		height: 100%;
+		width: 350px;
+		top: 0;
+		right: 0;
+		border-left: 1px solid #4dd0e1;
+		background: #fff;
+	}
+
+	.close-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        height: 30px;
+        width: 30px;
+        font-size: 20px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+	
+	.close-button:hover {
+        background-color: #e0e0e0;
+    }
+	
+    .title {
+        height: 50px;
+    }
+
+    .main {
+        padding: 10px;
+    }
+	
 	.header {
 		display: flex;
 		align-items: center;
@@ -162,24 +214,33 @@
         padding-right: 10px;
     }
 
-	.settings {
+	.options-button {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		position: absolute;
 		width: 35px;
 		height: 35px;
-		left: 15px;
 		border-radius: 50%;
-        font-size: 23px;
 		cursor: pointer;
-        transition: 0.5s;
 	}
 
-	.settings:hover {
+	.options-button:hover {
 		background: #e0e0e0;
 	}
 
+	.settings {
+		left: 15px;
+		font-size: 23px;
+		transition: 0.5s;
+	}
+	
+	.help {
+		left: 60px;
+		margin-top: 2px;
+		font-size: 28px;
+	}
+	
     .side-panel-open {
         transform: rotate(90deg);
         transition: 0.5s;
