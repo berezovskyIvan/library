@@ -1,6 +1,6 @@
 ﻿<template lang="pug">
 	.page-block
-		side-panel(v-if="sidePanelOpen")
+		side-panel(v-if="sidePanelOpen", @closeSidePanel="sidePanelOpen = false")
 		.header
 			.settings(@click="sidePanelOpen = !sidePanelOpen") &#9783
 			div Welcome to the web library
@@ -14,7 +14,7 @@
 	import booksRowData from './components/BooksRowData'
 	import customButton from './components/CustomButton'
 	import customTooltip from './components/customTooltip'
-	
+
 	export default {
 		name: 'library',
 		components: {
@@ -28,13 +28,13 @@
 				sidePanelOpen: false,
 				booksData: [
 					{
-						title: 'Заголовок',
+						title: 'Война и мир',
 						name: 'Лев',
 						surname: 'Толстой',
 						pageCount: 1500,
 						publishing: 'РОСМЭН',
 						publicationYear: 1900,
-						releaseDate: 1988
+						releaseDate: '1988-01-01'
 					}
 				]
 			}
@@ -59,7 +59,7 @@
 	.page-block {
 		height: 100%;
 	}
-	
+
 	.header {
 		display: flex;
 		align-items: center;
@@ -68,7 +68,7 @@
 		font-size: 23px;
 		font-weight: 550;
 	}
-	
+
 	.settings {
 		display: flex;
 		align-items: center;
@@ -80,11 +80,11 @@
 		border-radius: 50%;
 		cursor: pointer;
 	}
-	
+
 	.settings:hover {
 		background: #e0e0e0;
 	}
-	
+
 	.button-block {
 		position: fixed;
 		bottom: 15px;

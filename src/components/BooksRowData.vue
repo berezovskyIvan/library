@@ -1,5 +1,6 @@
 ﻿<template lang="pug">
 	.row-block(@mouseover="isHover = true", @mouseout="isHover = false")
+		span {{ data.title }}
 		input(v-model="bookData.title", placeholder="Заголовок", maxlength="30")
 		input(v-model="bookData.name", placeholder="Имя автора", maxlength="20")
 		input(v-model="bookData.surname", placeholder="Фамилия автора", maxlength="20")
@@ -19,15 +20,7 @@
 		data() {
 			return {
 				isHover: false,
-				bookData: {
-					title: '',
-					name: '',
-					surname: '',
-					pageCount: null,
-					publishing: '',
-					publicationYear: null,
-					releaseDate: ''
-				}
+				bookData: {}
 			}
 		},
 		props: {
@@ -35,8 +28,22 @@
 				type: Object,
 				default: {}
 			}
-		}
-	}
+		},
+        methods: {
+            createObjClone(initailObj) {
+            	const obj = {}
+
+                for (const key in initailObj) {
+                    this.$set(obj, key, initailObj[key])
+                }
+
+                return obj
+            }
+        },
+        created() {
+            this.bookData = this.createObjClone(this.data)
+        }
+    }
 </script>
 
 <style scoped>
@@ -46,7 +53,7 @@
 		height: 50px;
 		border-top: 1px solid #4dd0e1;
 	}
-	
+
 	.row-button {
 		display: flex;
 		align-items: center;
@@ -57,7 +64,7 @@
 		border-radius: 50%;
 		cursor: pointer;
 	}
-	
+
 	input {
 		margin: 0 10px 0 10px;
 		height: 23px;
@@ -65,7 +72,7 @@
 		border-width: 1px;
 		border-radius: 3px;
 	}
-	
+
 	.icon {
 		color: #fff;
 	}
