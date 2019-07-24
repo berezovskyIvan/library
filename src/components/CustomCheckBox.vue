@@ -1,37 +1,46 @@
 <template lang="pug">
     label.position(@click="changeChecked")
-        .boxBorder(:style="bloom") &#10003
+        .box-border(:class="{ active: checked }")
+            .checked-icon(v-if="checked") &#10003
 </template>
 
 <script>
 	export default {
 		name: 'customCheckBox',
-		props: {
+        props: {
 			checked: {
 				type: Boolean,
-				default: false
-			},
-			disabled: {
-				type: Boolean,
-				default: false
-			},
-			color: {
-				type: String,
-				default: '#9575cd'
-			}
-		},
-		computed: {
-			bloom: function() {
-                 if (this.checked) {
-					return { backgroundColor: this.color, border: '1.3px solid ' + this.color, cursor: 'pointer' }
-				} else {
-					return { backgroundColor: '#fff', border: '1.3px solid #8eacbb', cursor: 'pointer' }
-				}
-			}
-		}
+                default: false
+            }
+        },
+        methods: {
+			changeChecked() {
+                  this.$emit('changeChecked', this.checked)
+            }
+        }
 	}
 </script>
 
 <style  scoped>
+    .position {
+        position: relative;
+    }
 
+    .box-border {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 17px;
+        width: 17px;
+        border-radius: 3px;
+        border: 2px solid #e0e0e0;
+        background-color: #fff;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .active {
+        background: #e0e0e0 !important;
+    }
 </style>
