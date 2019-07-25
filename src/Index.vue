@@ -9,13 +9,15 @@
 		.header
 			.options-button.settings(@click="sidePanelUse('settings')", :class="{ 'side-panel-open' : sPanel.isOpen && sPanel.type === 'settings' }") &#9776
 			.options-button.help(@click="sidePanelUse('help')") &#63
+			sort-block.sort-block-position(title="Заголовок", @sort="$event => sort($event, 'title')", style="left: 130px")
+			sort-block.sort-block-position(title="Год публикации", @sort="$event => sort($event, 'publicationYear')", style="left: 240px")
 			img.books-picture(src="./pictures/Books.png")
 			span.title-text Добро пожаловать в веб библиотеку
 			.message(v-show="message.visibility") {{ message.text }}
 				span.exclamation(:style="bloom") &#33
 		books-row-data.row-block(v-for="(item, index) in booksData", :data="item", :index="index", :options="options", @updateBooksData="updateBooksData")
 		.button-block(@click="addBookData")
-			custom-button(diameter="70px")
+			custom-button(diameter="70px", tooltip="Добавить")
 </template>
 
 <script>
@@ -23,7 +25,7 @@
 	import helpPanel from './components/HelpPanel'
 	import booksRowData from './components/BooksRowData'
 	import customButton from './components/CustomButton'
-	import customTooltip from './components/customTooltip'
+    import sortBlock from './components/SortBlock'
 
 	export default {
 		name: 'library',
@@ -32,7 +34,7 @@
 			helpPanel,
 			booksRowData,
 			customButton,
-			customTooltip
+            sortBlock
 		},
 		data() {
 			return {
@@ -61,6 +63,12 @@
                 }
             }
         },
+        watch: {
+		    'options.publishing': function() { this.saveLocalStorage('options', this.options) },
+            'options.publicationYear': function() { this.saveLocalStorage('options', this.options) },
+            'options.releaseDate': function() { this.saveLocalStorage('options', this.options) },
+            'options.imagine': function() { this.saveLocalStorage('options', this.options) }
+        },
 		methods: {
 			sidePanelUse(type) {
 				this.sPanel.isOpen = !this.sPanel.isOpen || this.sPanel.type !== type
@@ -68,6 +76,24 @@
 			},
 			getArrayClone(arr) {
 			    return JSON.parse(JSON.stringify(arr))
+            },
+            getBooksData() {
+                const storageData = JSON.parse(localStorage.getItem('booksData'))
+
+                if (storageData && storageData.length) {
+                    this.cloud = storageData
+                    this.booksData = this.getArrayClone(this.cloud)
+                } else {
+                    this.addBookData()
+                }
+            },
+            getOptions() {
+				const options = JSON.parse(localStorage.getItem('options'))
+
+                if (options) { this.options = options }
+            },
+            saveLocalStorage(name, data) {
+                localStorage.setItem(name, JSON.stringify(data))
             },
 			addBookData() {
 				const obj = {
@@ -81,7 +107,6 @@
                     imagine: null
                 }
 
-                this.cloud.push(obj)
 				this.booksData.push(obj)
 			},
             updateBooksData({ type, index, data }) {
@@ -94,25 +119,25 @@
                     this.message.text = 'Запись удалена'
                 }
 
-                localStorage.setItem('booksData', JSON.stringify(this.cloud))
+                this.saveLocalStorage('booksData', this.cloud)
 
                 this.message.visibility = true
 
                 setTimeout(() => {
                 	this.message.visibility = false
                 }, 2000)
+            },
+            sort($event, name) {
+                const sortType = $event.type === 'ASC' ? 1 : -1
+                this.cloud.sort((a, b) => { return a[name] > b[name] ? sortType : -sortType })
+				this.booksData.sort((a, b) => { return a[name] > b[name] ? sortType : -sortType })
+
+                localStorage.setItem('booksData', JSON.stringify(this.cloud))
             }
 		},
         mounted() {
-			const storageData = JSON.parse(localStorage.getItem('booksData'))
-
-            if (storageData && storageData.length) {
-            	this.cloud = storageData
-                this.booksData = this.getArrayClone(this.cloud)
-            } else {
-            	console.log('fuck')
-              this.addBookData()
-            }
+			this.getOptions()
+            this.getBooksData()
         }
 	}
 </script>
@@ -183,11 +208,11 @@
         border-radius: 50%;
         cursor: pointer;
     }
-	
+
 	.close-button:hover {
         background-color: #e0e0e0;
     }
-	
+
     .title {
         height: 50px;
     }
@@ -195,7 +220,7 @@
     .main {
         padding: 10px;
     }
-	
+
 	.header {
 		display: flex;
 		align-items: center;
@@ -234,13 +259,17 @@
 		font-size: 23px;
 		transition: 0.5s;
 	}
-	
+
 	.help {
 		left: 60px;
 		margin-top: 2px;
 		font-size: 28px;
 	}
-	
+
+    .sort-block-position {
+        position: absolute;
+    }
+
     .side-panel-open {
         transform: rotate(90deg);
         transition: 0.5s;

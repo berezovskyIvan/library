@@ -1,8 +1,8 @@
 ﻿<template lang="pug">
-	custom-tooltip(value="Добавить")
+	custom-tooltip(:value="tooltip")
 		slot
-			.button-block(:style="bloom")
-				.plus-icon(:style="{ fontSize: this.iconSize }") &#43
+			.button-block(:style="bloom", :class="{ disabled: disabled }")
+				.plus-icon(:style="{ fontSize: this.iconSize }", v-html="icon")
 </template>
 
 <script>
@@ -18,6 +18,10 @@
 				type: String,
 				default: '50px'
 			},
+            icon: {
+				type: String,
+                default: '&#43'
+            },
 			iconSize: {
 				type: String,
 				default: '60px',
@@ -25,7 +29,15 @@
 			color: {
 				type: String,
 				default: '#4dd0e1'
-			}
+			},
+            tooltip: {
+				type: String,
+                default: ''
+            },
+            disabled: {
+			    type: Boolean,
+                default: false
+            }
 		},
 		computed: {
 			bloom: function() {
@@ -47,15 +59,20 @@
 		border-radius: 50%;
 		color: #fff;
 	}
-	
+
 	.button-block:hover {
 		cursor: pointer;
 		opacity: 0.7;
 	}
-	
+
 	.plus-icon {
 		font-size: 60px;
 		font-weight: bold;
 		user-select: none;
 	}
+
+    .disabled {
+        background: #e0e0e0 !important;
+        cursor: not-allowed !important;
+    }
 </style>

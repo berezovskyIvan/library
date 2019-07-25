@@ -1,7 +1,7 @@
 ﻿<template lang="pug">
 	.tooltip
 		slot
-		.tooltip-text {{ value }}
+		.tooltip-text(:style="!value ? { display: 'none' } : {}") {{ value }}
 </template>
 
 <script>

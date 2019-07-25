@@ -11,17 +11,23 @@
 		input(v-show="options.publicationYear", v-model="data.publicationYear", placeholder="Год публикации" type="number", min="1800")
 		input(v-show="options.releaseDate", v-model="data.releaseDate", type="date", min="1800-01-01")
 		img.cover(v-show="data.imagine && options.imagine", :src="data.imagine", accept="image/*")
-		.delete-cover(v-show="isHover && data.imagine && options.imagine", @click="data.imagine = null") &#10006
+		div(v-show="isHover && data.imagine && options.imagine", @click="data.imagine = null")
+			custom-button(diameter="20px", icon="&#10006", iconSize="15px", color="#e0e0e0")
 		.buttons-block
-			.row-button(v-show="isHover", style="background: #00e676", :class="{ disabled : !isValid }", @click="isValid && updateBooksData('update')")
-				.icon.check &#10003
-			.row-button(v-show="isHover", style="background: #ff3d00", @click="updateBooksData('delete')")
-				.icon &#10006
+			.row-button(@click="isValid && updateBooksData('update')")
+				custom-button(v-show="isHover", diameter="25px", icon="&#10003", iconSize="21px", color="#00e676", :disabled="!isValid")
+			.row-button(@click="updateBooksData('delete')")
+				custom-button(v-show="isHover", diameter="25px", icon="&#10006", iconSize="18px", color="#ff3d00", @click="isValid && updateBooksData('delete')")
 </template>
 
 <script>
+    import customButton from './CustomButton'
+
 	export default {
 		name: 'booksRowData',
+        components: {
+			customButton
+        },
 		data() {
 			return {
 				isHover: false
@@ -82,7 +88,7 @@
 	.row-block {
 		display: flex;
 		align-items: center;
-		height: 70px;
+		height: 90px;
         padding-left: 10px;
 		border-top: 1px solid #4dd0e1;
 	}
@@ -94,14 +100,7 @@
     }
 
 	.row-button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 25px;
-		width: 25px;
 		margin-right: 10px;
-		border-radius: 50%;
-		cursor: pointer;
 	}
 
 	input {
@@ -120,28 +119,9 @@
 		font-weight: bold;
 	}
 
-    .disabled {
-        background: #e0e0e0 !important;
-        cursor: not-allowed;
-    }
-
     .cover {
-        height: 50px;
-        width: 50px;
+        max-height: 80%;
         padding-right: 5px;
-    }
-
-    .delete-cover {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 20px;
-        width: 20px;
-        font-size: 15px;
-        border-radius: 50%;
-        color: #fff;
-        background: #e0e0e0;
-        cursor: pointer;
     }
 
     .download-file {
