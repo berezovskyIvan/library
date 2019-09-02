@@ -1,23 +1,23 @@
 ﻿<template lang="pug">
-	.row-block(@mouseover="isHover = true", @mouseout="isHover = false")
-		input(type="file", @change="getPicture", style="display: none", :id="index")
-		label.download-file(:for="index")
-			span(style="margin-bottom: 3px") &#10152
-		input(v-model="data.title", placeholder="Заголовок", maxlength="30")
-		input(v-model="data.name", placeholder="Имя автора", maxlength="20")
-		input(v-model="data.surname", placeholder="Фамилия автора", maxlength="20")
-		input(v-model="data.pageCount", placeholder="Количество страниц", type="number", min="0", max="10000")
-		input(v-show="options.publishing", v-model="data.publishing", placeholder="Издательство", maxlength="30")
-		input(v-show="options.publicationYear", v-model="data.publicationYear", placeholder="Год публикации" type="number", min="1800")
-		input(v-show="options.releaseDate", v-model="data.releaseDate", type="date", min="1800-01-01")
-		img.cover(v-show="data.imagine && options.imagine", :src="data.imagine", accept="image/*")
-		div(v-show="isHover && data.imagine && options.imagine", @click="data.imagine = null")
-			custom-button(diameter="20px", icon="&#10006", iconSize="15px", color="#e0e0e0")
-		.buttons-block
-			.row-button(@click="isValid && updateBooksData('update')")
-				custom-button(v-show="isHover", diameter="25px", icon="&#10003", iconSize="21px", color="#00e676", :disabled="!isValid")
-			.row-button(@click="updateBooksData('delete')")
-				custom-button(v-show="isHover", diameter="25px", icon="&#10006", iconSize="18px", color="#ff3d00", @click="isValid && updateBooksData('delete')")
+  .row-block(@mouseover="isHover = true", @mouseout="isHover = false")
+    input(type="file", @change="getPicture", style="display: none", :id="index")
+    label.download-file(:for="index")
+      span(style="margin-bottom: 3px") &#10152
+    input(v-model="data.title", placeholder="Заголовок", maxlength="30")
+    input(v-model="data.name", placeholder="Имя автора", maxlength="20")
+    input(v-model="data.surname", placeholder="Фамилия автора", maxlength="20")
+    input(v-model="data.pageCount", placeholder="Количество страниц", type="number", min="0", max="10000")
+    input(v-show="options.publishing", v-model="data.publishing", placeholder="Издательство", maxlength="30")
+    input(v-show="options.publicationYear", v-model="data.publicationYear", placeholder="Год публикации" type="number", min="1800")
+    input(v-show="options.releaseDate", v-model="data.releaseDate", type="date", min="1800-01-01")
+    img.cover(v-show="data.imagine && options.imagine", :src="data.imagine", accept="image/*")
+    div(v-show="isHover && data.imagine && options.imagine", @click="data.imagine = null")
+      custom-button(diameter="20px", icon="&#10006", iconSize="15px", color="#e0e0e0")
+    .buttons-block
+      .row-button(@click="isValid && updateBooksData('update')")
+        custom-button(v-show="isHover", diameter="25px", icon="&#10003", iconSize="21px", color="#00e676", :disabled="!isValid")
+      .row-button(@click="updateBooksData('delete')")
+        custom-button(v-show="isHover", diameter="25px", icon="&#10006", iconSize="18px", color="#ff3d00", @click="isValid && updateBooksData('delete')")
 </template>
 
 <script>
