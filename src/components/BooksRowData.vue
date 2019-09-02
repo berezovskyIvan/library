@@ -24,20 +24,20 @@
   import customButton from './CustomButton'
 
 	export default {
-		name: 'booksRowData',
+    name: 'booksRowData',
     components: {
-			customButton
+        customButton
     },
-		data() {
-			return {
-				isHover: false
-			}
-		},
-		props: {
-			data: {
-				type: Object,
-				default: {}
-			},
+    data() {
+      return {
+          isHover: false
+      }
+    },
+    props: {
+      data: {
+          type: Object,
+          default: {}
+      },
       index: {
         type: Number,
         default: 0
