@@ -23,7 +23,7 @@
 <script>
   import customButton from './CustomButton'
 
-	export default {
+  export default {
     name: 'booksRowData',
     components: {
         customButton
@@ -82,13 +82,13 @@
 </script>
 
 <style scoped>
-	.row-block {
-		display: flex;
-		align-items: center;
-		height: 90px;
+  .row-block {
+    display: flex;
+    align-items: center;
+    height: 90px;
     padding-left: 10px;
-		border-top: 1px solid #4dd0e1;
-	}
+    border-top: 1px solid #4dd0e1;
+  }
 
   .buttons-block {
     position: absolute;
@@ -96,25 +96,25 @@
     right: 20px;
   }
 
-	.row-button {
-		margin-right: 10px;
-	}
+  .row-button {
+    margin-right: 10px;
+  }
 
-	input {
-		margin: 0 10px 0 10px;
-		height: 23px;
-		width: 130px;
-		border-width: 1px;
-		border-radius: 3px;
-	}
+  input {
+    margin: 0 10px 0 10px;
+    height: 23px;
+    width: 130px;
+    border-width: 1px;
+    border-radius: 3px;
+  }
 
-	.icon {
-		color: #fff;
-	}
+  .icon {
+    color: #fff;
+  }
 
-	.check {
-		font-weight: bold;
-	}
+  .check {
+    font-weight: bold;
+  }
 
   .cover {
     max-height: 80%;
