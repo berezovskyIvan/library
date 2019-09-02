@@ -5,20 +5,20 @@
 </template>
 
 <script>
-	export default {
-		name: 'customCheckBox',
+  export default {
+    name: 'customCheckBox',
     props: {
-			checked: {
-				type: Boolean,
+      checked: {
+        type: Boolean,
         default: false
       }
     },
     methods: {
-			changeChecked() {
+      changeChecked() {
         this.$emit('changeChecked', this.checked)
       }
     }
-	}
+  }
 </script>
 
 <style scoped>
