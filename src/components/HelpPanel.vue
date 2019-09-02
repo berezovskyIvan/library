@@ -59,14 +59,13 @@
 		margin-top: 3px;
 	}
 
-    .download {
-        font-size: 35px;
-        transform: rotate(90deg);
-        color: #4dd0e1;
-    }
+  .download {
+    font-size: 35px;
+    transform: rotate(90deg);
+    color: #4dd0e1;
+  }
 
-    .delete-book {
-        max-height: 65px;
-        //width: 70px;
-    }
+  .delete-book {
+    max-height: 65px;
+  }
 </style>

@@ -4,7 +4,7 @@
 
 <script>
 	import library from './index'
-	
+
 	export default {
 		name: 'app',
 		components:{

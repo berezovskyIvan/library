@@ -25,13 +25,11 @@
 	  text-align: center;
 	  padding: 5px 0;
 	  border-radius: 6px;
-
 	  position: absolute;
 	  z-index: 1;
 	  bottom: 110%;
 	  left: 50%;
 	  margin-left: -75px;
-
 	  opacity: 0;
 	  transition: opacity 0.3s;
 	}

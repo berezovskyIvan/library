@@ -25,7 +25,7 @@
 	import helpPanel from './components/HelpPanel'
 	import booksRowData from './components/BooksRowData'
 	import customButton from './components/CustomButton'
-    import sortBlock from './components/SortBlock'
+  import sortBlock from './components/SortBlock'
 
 	export default {
 		name: 'library',
@@ -34,7 +34,7 @@
 			helpPanel,
 			booksRowData,
 			customButton,
-            sortBlock
+      sortBlock
 		},
 		data() {
 			return {
@@ -42,150 +42,149 @@
 					isOpen: false,
 					type: ''
 				},
-                options: {
-                    publishing: true,
-                    publicationYear: true,
-                    releaseDate: true,
-                    imagine: true
-                },
-                cloud: [],
+        options: {
+          publishing: true,
+          publicationYear: true,
+          releaseDate: true,
+          imagine: true
+        },
+        cloud: [],
 				booksData: [],
-                message: {
-				    visibility: false,
-                    text: ''
-                }
+        message: {
+          visibility: false,
+          text: ''
+        }
 			}
 		},
-        computed: {
-            bloom: function () {
-                return {
-                	color: this.message.text === 'Запись сохранена' ? '#00e676' : '#ff3d00'
-                }
-            }
-        },
-        watch: {
-		    'options.publishing': function() { this.saveLocalStorage('options', this.options) },
-            'options.publicationYear': function() { this.saveLocalStorage('options', this.options) },
-            'options.releaseDate': function() { this.saveLocalStorage('options', this.options) },
-            'options.imagine': function() { this.saveLocalStorage('options', this.options) }
-        },
+    computed: {
+      bloom: function () {
+        return {
+          color: this.message.text === 'Запись сохранена' ? '#00e676' : '#ff3d00'
+        }
+      }
+    },
+    watch: {
+      'options.publishing': function() { this.saveLocalStorage('options', this.options) },
+      'options.publicationYear': function() { this.saveLocalStorage('options', this.options) },
+      'options.releaseDate': function() { this.saveLocalStorage('options', this.options) },
+      'options.imagine': function() { this.saveLocalStorage('options', this.options) }
+    },
 		methods: {
 			sidePanelUse(type) {
 				this.sPanel.isOpen = !this.sPanel.isOpen || this.sPanel.type !== type
 				this.sPanel.type = this.sPanel.isOpen ? type : ''
 			},
 			getArrayClone(arr) {
-			    return JSON.parse(JSON.stringify(arr))
-            },
-            getBooksData() {
-                const storageData = JSON.parse(localStorage.getItem('booksData'))
+        return JSON.parse(JSON.stringify(arr))
+      },
+      getBooksData() {
+        const storageData = JSON.parse(localStorage.getItem('booksData'))
 
-                if (storageData && storageData.length) {
-                    this.cloud = storageData
-                    this.booksData = this.getArrayClone(this.cloud)
-                } else {
-                    this.addBookData()
-                }
-            },
-            getOptions() {
+        if (storageData && storageData.length) {
+            this.cloud = storageData
+            this.booksData = this.getArrayClone(this.cloud)
+        } else {
+            this.addBookData()
+        }
+      },
+      getOptions() {
 				const options = JSON.parse(localStorage.getItem('options'))
 
-                if (options) { this.options = options }
-            },
-            saveLocalStorage(name, data) {
-                localStorage.setItem(name, JSON.stringify(data))
-            },
+        if (options) { this.options = options }
+      },
+      saveLocalStorage(name, data) {
+        localStorage.setItem(name, JSON.stringify(data))
+      },
 			addBookData() {
 				const obj = {
-                    title: '',
-                    name: '',
-                    surname: '',
-                    pageCount: null,
-                    publishing: '',
-                    publicationYear: null,
-                    releaseDate: null,
-                    imagine: null
-                }
+          title: '',
+          name: '',
+          surname: '',
+          pageCount: null,
+          publishing: '',
+          publicationYear: null,
+          releaseDate: null,
+          imagine: null
+        }
 
 				this.booksData.push(obj)
 			},
-            updateBooksData({ type, index, data }) {
-                if (type === 'update') {
-                	this.cloud[index] = data
-                    this.message.text = 'Запись сохранена'
-                } else {
-                	this.cloud.splice(index, 1)
-                    this.booksData.splice(index, 1)
-                    this.message.text = 'Запись удалена'
-                }
-
-                this.saveLocalStorage('booksData', this.cloud)
-
-                this.message.visibility = true
-
-                setTimeout(() => {
-                	this.message.visibility = false
-                }, 2000)
-            },
-            sort($event, name) {
-                const sortType = $event.type === 'ASC' ? 1 : -1
-                this.cloud.sort((a, b) => { return a[name] > b[name] ? sortType : -sortType })
-				this.booksData.sort((a, b) => { return a[name] > b[name] ? sortType : -sortType })
-
-                localStorage.setItem('booksData', JSON.stringify(this.cloud))
-            }
-		},
-        mounted() {
-			this.getOptions()
-            this.getBooksData()
+      updateBooksData({ type, index, data }) {
+        if (type === 'update') {
+          this.cloud[index] = data
+          this.message.text = 'Запись сохранена'
+        } else {
+          this.cloud.splice(index, 1)
+          this.booksData.splice(index, 1)
+          this.message.text = 'Запись удалена'
         }
+
+        this.saveLocalStorage('booksData', this.cloud)
+
+        this.message.visibility = true
+
+        setTimeout(() => {
+          this.message.visibility = false
+        }, 2000)
+      },
+      sort($event, name) {
+        const sortType = $event.type === 'ASC' ? 1 : -1
+        this.cloud.sort((a, b) => { return a[name] > b[name] ? sortType : -sortType })
+				this.booksData.sort((a, b) => { return a[name] > b[name] ? sortType : -sortType })
+        localStorage.setItem('booksData', JSON.stringify(this.cloud))
+      }
+		},
+    mounted() {
+			this.getOptions()
+      this.getBooksData()
+    }
 	}
 </script>
 
 <style scoped>
-    @keyframes carousel {
-        0% {
-            right: 0px;
-        }
-        10% {
-            right: 5px;
-        }
-        20% {
-            right: 10px;
-        }
-        30% {
-            right: 15px;
-        }
-        40% {
-            right: 20px;
-        }
-        50% {
-            right: 25px;
-        }
-        60% {
-            right: 30px;
-        }
-        70% {
-            right: 35px;
-        }
-        80% {
-            right: 40px;
-        }
-        90% {
-            right: 45px;
-        }
-        100% {
-            right: 50px;
-        }
+  @keyframes carousel {
+    0% {
+      right: 0px;
     }
+    10% {
+      right: 5px;
+    }
+    20% {
+      right: 10px;
+    }
+    30% {
+      right: 15px;
+    }
+    40% {
+      right: 20px;
+    }
+    50% {
+      right: 25px;
+    }
+    60% {
+      right: 30px;
+    }
+    70% {
+      right: 35px;
+    }
+    80% {
+      right: 40px;
+    }
+    90% {
+      right: 45px;
+    }
+    100% {
+      right: 50px;
+    }
+  }
 
 	.page-block {
 		height: 100%;
-        border-bottom: 1px solid #4dd0e1;
+    border-bottom: 1px solid #4dd0e1;
 	}
 
 	.side-panel {
-        z-index: 1;
+    z-index: 1;
 		position: absolute;
 		height: 100%;
 		width: 350px;
@@ -196,30 +195,30 @@
 	}
 
 	.close-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        height: 30px;
-        width: 30px;
-        font-size: 20px;
-        border-radius: 50%;
-        cursor: pointer;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
 
 	.close-button:hover {
-        background-color: #e0e0e0;
-    }
+    background-color: #e0e0e0;
+  }
 
-    .title {
-        height: 50px;
-    }
+  .title {
+    height: 50px;
+  }
 
-    .main {
-        padding: 10px;
-    }
+  .main {
+    padding: 10px;
+  }
 
 	.header {
 		display: flex;
@@ -228,16 +227,16 @@
 		height: 70px;
 	}
 
-    .title-text {
-        font-size: 23px;
-        font-weight: 550;
-    }
+  .title-text {
+    font-size: 23px;
+    font-weight: 550;
+  }
 
-    .books-picture {
-        width: 50px;
-        height: 50px;
-        padding-right: 10px;
-    }
+  .books-picture {
+    width: 50px;
+    height: 50px;
+    padding-right: 10px;
+  }
 
 	.options-button {
 		display: flex;
@@ -266,14 +265,14 @@
 		font-size: 28px;
 	}
 
-    .sort-block-position {
-        position: absolute;
-    }
+  .sort-block-position {
+    position: absolute;
+  }
 
-    .side-panel-open {
-        transform: rotate(90deg);
-        transition: 0.5s;
-    }
+  .side-panel-open {
+    transform: rotate(90deg);
+    transition: 0.5s;
+  }
 
 	.button-block {
 		position: fixed;
@@ -281,25 +280,25 @@
 		right: 15px;
 	}
 
-    .message {
-        z-index: 2;
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 40px;
-        width: 150px;
-        right: 50px;
-        font-size: 15px;
-        border: 1px solid #90a4ae;
-        border-radius: 4px;
-        animation: carousel 0.5s;
-    }
+  .message {
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 150px;
+    right: 50px;
+    font-size: 15px;
+    border: 1px solid #90a4ae;
+    border-radius: 4px;
+    animation: carousel 0.5s;
+  }
 
-    .exclamation {
-        left: 10px;
-        padding-left: 5px;
-        font-size: 30px;
-        font-weight: bold;
-    }
+  .exclamation {
+    left: 10px;
+    padding-left: 5px;
+    font-size: 30px;
+    font-weight: bold;
+  }
 </style>

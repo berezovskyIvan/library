@@ -21,13 +21,13 @@
 </template>
 
 <script>
-    import customButton from './CustomButton'
+  import customButton from './CustomButton'
 
 	export default {
 		name: 'booksRowData',
-        components: {
+    components: {
 			customButton
-        },
+    },
 		data() {
 			return {
 				isHover: false
@@ -38,50 +38,47 @@
 				type: Object,
 				default: {}
 			},
-            index: {
-                type: Number,
-                default: 0
-            },
-            options: {
-				type: Object,
-                default: null
-            }
+      index: {
+        type: Number,
+        default: 0
+      },
+      options: {
+        type: Object,
+        default: null
+      }
 		},
-        computed: {
-            isValid: function () {
-                return this.data.title && this.data.title.length <= 30 &&
-                this.data.name && this.data.name.length <= 20 &&
-                this.data.surname && this.data.surname.length <= 20 &&
-                this.data.pageCount > 0 && this.data.pageCount <= 10000 &&
-                this.data.publishing && this.data.publishing.length <= 30 &&
-                this.data.publicationYear >= 1800 &&
-                this.data.releaseDate >= '1800-01-01'
-            }
-        },
-        methods: {
-            getPicture(file) {
-            	if (file.target.files.length) {
-                    const reader = new FileReader()
+    computed: {
+      isValid: function () {
+        return this.data.title && this.data.title.length <= 30 &&
+        this.data.name && this.data.name.length <= 20 &&
+        this.data.surname && this.data.surname.length <= 20 &&
+        this.data.pageCount > 0 && this.data.pageCount <= 10000 &&
+        this.data.publishing && this.data.publishing.length <= 30 &&
+        this.data.publicationYear >= 1800 &&
+        this.data.releaseDate >= '1800-01-01'
+      }
+    },
+    methods: {
+      getPicture(file) {
+        if (file.target.files.length) {
+          const reader = new FileReader()
 
-                    reader.onload = ($event) => {
-                        this.data.imagine = $event.target.result
-                    }
+          reader.onload = ($event) => {
+            this.data.imagine = $event.target.result
+          }
 
-                    reader.readAsDataURL(file.target.files[0])
-                }
-            },
-            updateBooksData(type) {
-                this.$emit('updateBooksData', {
-                	type,
-                    index: this.index,
-                    data: this.data
-                })
-            }
-        },
-        mounted() {
-
+          reader.readAsDataURL(file.target.files[0])
         }
+      },
+      updateBooksData(type) {
+        this.$emit('updateBooksData', {
+          type,
+          index: this.index,
+          data: this.data
+        })
+      }
     }
+  }
 </script>
 
 <style scoped>
@@ -89,15 +86,15 @@
 		display: flex;
 		align-items: center;
 		height: 90px;
-        padding-left: 10px;
+    padding-left: 10px;
 		border-top: 1px solid #4dd0e1;
 	}
 
-    .buttons-block {
-        position: absolute;
-        display: flex;
-        right: 20px;
-    }
+  .buttons-block {
+    position: absolute;
+    display: flex;
+    right: 20px;
+  }
 
 	.row-button {
 		margin-right: 10px;
@@ -119,25 +116,25 @@
 		font-weight: bold;
 	}
 
-    .cover {
-        max-height: 80%;
-        padding-right: 5px;
-    }
+  .cover {
+    max-height: 80%;
+    padding-right: 5px;
+  }
 
-    .download-file {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 30px;
-        transform: rotate(90deg);
-        color: #4dd0e1;
-        height: 35px;
-        width: 35px;
-        border-radius: 50%;
-        cursor: pointer;
-    }
+  .download-file {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    transform: rotate(90deg);
+    color: #4dd0e1;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
 
-    .download-file:hover {
-        background: #e0e0e0;
-    }
+  .download-file:hover {
+    background: #e0e0e0;
+  }
 </style>

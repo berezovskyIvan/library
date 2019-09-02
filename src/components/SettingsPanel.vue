@@ -15,30 +15,30 @@
 </template>
 
 <script>
-    import customCheckBox from './CustomCheckBox'
+  import customCheckBox from './CustomCheckBox'
 
 	export default {
 		name: 'settingsPanel',
-        components: {
-		    customCheckBox
-        },
-        props: {
-			options: {
-				type: Object,
-                default: {}
-            }
-        }
+    components: {
+      customCheckBox
+    },
+    props: {
+      options: {
+        type: Object,
+        default: {}
+      }
+    }
 	}
 </script>
 
 <style scoped>
-    .option-row {
-        display: flex;
-        align-items: center;
-        height: 40px;
-    }
+  .option-row {
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
 
-    span {
-        margin-left: 10px;
-    }
+  span {
+    margin-left: 10px;
+  }
 </style>

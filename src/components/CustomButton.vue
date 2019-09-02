@@ -18,10 +18,10 @@
 				type: String,
 				default: '50px'
 			},
-            icon: {
+      icon: {
 				type: String,
-                default: '&#43'
-            },
+        default: '&#43'
+      },
 			iconSize: {
 				type: String,
 				default: '60px',
@@ -30,14 +30,14 @@
 				type: String,
 				default: '#4dd0e1'
 			},
-            tooltip: {
+      tooltip: {
 				type: String,
-                default: ''
-            },
-            disabled: {
-			    type: Boolean,
-                default: false
-            }
+        default: ''
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      }
 		},
 		computed: {
 			bloom: function() {
@@ -71,8 +71,8 @@
 		user-select: none;
 	}
 
-    .disabled {
-        background: #e0e0e0 !important;
-        cursor: not-allowed !important;
-    }
+  .disabled {
+    background: #e0e0e0 !important;
+    cursor: not-allowed !important;
+  }
 </style>
