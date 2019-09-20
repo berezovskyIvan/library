@@ -21,11 +21,11 @@
 </template>
 
 <script>
-  import settingsPanel from './components/SettingsPanel'
-  import helpPanel from './components/HelpPanel'
-  import booksRowData from './components/BooksRowData'
-  import customButton from './components/CustomButton'
-  import sortBlock from './components/SortBlock'
+  import settingsPanel from './components/settingsPanel'
+  import helpPanel from './components/helpPanel'
+  import booksRowData from './components/booksRowData'
+  import customButton from './components/customButton'
+  import sortBlock from './components/sortBlock'
 
   export default {
     name: 'library',
@@ -177,7 +177,7 @@
     left: 5px;
     height: 30px;
     width: 30px;
-    font-size: 20px;
+    font-size: 17px;
     border-radius: 50%;
     cursor: pointer;
   }

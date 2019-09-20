@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import customButton from './CustomButton'
+  import customButton from './customButton'
 
   export default {
     name: 'booksRowData',

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import customTooltip from './CustomTooltip'
+  import customTooltip from './customTooltip'
 
   export default {
     name: 'customButton',
