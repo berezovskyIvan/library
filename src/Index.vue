@@ -125,7 +125,7 @@
 
         setTimeout(() => {
           this.msg.active = false
-        }, 3000)
+        }, 2000)
       },
       sort($event, name) {
         const sortType = $event.type === 'ASC' ? 1 : -1
@@ -149,7 +149,6 @@
     }
     to {
       right: 50px;
-      visibility: hidden;
     }
   }
 
@@ -270,7 +269,7 @@
   }
 
   .msg--active {
-    animation: carousel 1.5s;
+    animation: carousel 2s;
   }
   
   .exclamation {
