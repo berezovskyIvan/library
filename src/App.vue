@@ -1,24 +1,24 @@
 ﻿<template lang="pug">
-	library
+  library
 </template>
 
 <script>
-	import library from './index'
+  import library from './index'
 
-	export default {
-		name: 'app',
-		components:{
-			library
-		}
-	}
+  export default {
+    name: 'app',
+    components:{
+      library
+    }
+  }
 </script>
 
 <style>
-	html {
-		height: 100%;
-	}
+  html {
+    height: 100%;
+  }
 
-	body {
-		margin: 0;
-	}
+  body {
+    margin: 0;
+  }
 </style>
