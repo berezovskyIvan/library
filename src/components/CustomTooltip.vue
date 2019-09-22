@@ -18,7 +18,7 @@
 
 <style lang="less" scoped>
   .tooltip {
-    &:hover:last-child {
+    &:hover {
       .tooltip__text {
         visibility: visible;
         opacity: 1; 

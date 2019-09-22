@@ -26,7 +26,7 @@
   export default {
     name: 'booksRowData',
     components: {
-        customButton
+      customButton
     },
     data() {
       return {
