@@ -144,7 +144,7 @@
 <style lang="less" scoped>
   @keyframes carousel {
     from {
-      right: 0px;
+      right: 0;
       visibility: visible;
     }
     to {

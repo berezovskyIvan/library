@@ -1,11 +1,11 @@
 <template lang="pug">
-  .sort-block
-    .title {{ title }}
-    .sort-buttons
-      .sort(style="align-items: flex-start", :class="{ active: activeSort === 'ASC' }", @click="sort('ASC')")
-        .asc-sort &#10151
-      .sort(style="align-items: flex-end", :class="{ active: activeSort === 'DESC' }", @click="sort('DESC')")
-        .desc-sort &#10151
+  .sort
+    .sort__title {{ title }}
+    .sort__buttons
+      .sort__buttons__icon(style="align-items: flex-start", :class="{ active: activeSort === 'ASC' }", @click="sort('ASC')")
+        .sort__buttons__icon--asc &#10151
+      .sort__buttons__icon(style="align-items: flex-end", :class="{ active: activeSort === 'DESC' }", @click="sort('DESC')")
+        .sort__buttons__icon--desc &#10151
 </template>
 
 <script>
@@ -31,49 +31,49 @@
   }
 </script>
 
-<style scoped>
-  .sort-block {
+<style lang="less" scoped>
+  .sort {
     display: flex;
     width: 90px;
     height: 30px;
     border-radius: 6px;
     background: #eeeeee;
     padding-left: 5px;
-  }
 
-  .title {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    width: 70%;
-    font-size: 13px;
-  }
+    &__title {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      width: 70%;
+      font-size: 13px;
+    }
 
-  .sort-buttons {
-    height: 100%;
-    width: 30%;
-  }
+    &__buttons {
+      height: 100%;
+      width: 30%;
 
-  .sort {
-    display: flex;
-    justify-content: center;
-    height: 50%;
-    width: 100%;
-    font-size: 15px;
-    cursor: pointer;
-    color: #d7ccc8;
-  }
+      .active {
+        color: #4dd0e1 !important;
+      }
 
-  .asc-sort {
-    transform: rotate(-90deg);
-  }
+      &__icon {
+        display: flex;
+        justify-content: center;
+        height: 50%;
+        width: 100%;
+        font-size: 15px;
+        cursor: pointer;
+        color: #d7ccc8;
+        
+        &--asc {
+          transform: rotate(-90deg);
+        }
 
-  .desc-sort {
-    transform: rotate(90deg);
-    margin-left: 2px;
-  }
-
-  .active {
-    color: #4dd0e1 !important;
+        &--desc {
+          transform: rotate(90deg);
+          margin-left: 2px;
+        }
+      }
+    }
   }
 </style>
